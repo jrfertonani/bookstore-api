@@ -23,6 +23,6 @@ public class Livro implements Serializable {
 
     @JsonIgnoreProperties
     @ManyToOne
-    @JoinColumn(name = "bookstore_id")
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 }

@@ -27,12 +27,12 @@ public class LivroService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! id: " + id + ", Tipo: " + Livro.class.getName()));
     }
-/*
-    @Transactional()
-    public List<Livro> findAll(){
-    return repository.findAll();
-    }
-*/
+    /*
+        @Transactional()
+        public List<Livro> findAll(){
+        return repository.findAll();
+        }
+    */
     @Transactional()
     public Livro create(Livro obj){
         obj.setId(null);
@@ -43,6 +43,8 @@ public class LivroService {
     public Livro update(Integer id, LivroDTO objDto) {
         Livro obj = findById(id);
         obj.setTitulo(objDto.getTitulo());
+        obj.setNome_autor(objDto.getNome_autor());
+        obj.setTexto(obj.getTexto());
         return repository.save(obj);
     }
 
@@ -57,7 +59,7 @@ public class LivroService {
     }
 
 
-    public List<Livro> findAll(Integer id_cat) {
+    public List<Livro> findAllCat(Integer id_cat) {
         categoriaService.findById(id_cat);
         return repository.findAllByCategoria(id_cat);
     }

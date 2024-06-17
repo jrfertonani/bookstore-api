@@ -20,10 +20,14 @@ public class LivroDTO implements Serializable {
     @Id
     private Integer id;
     private String titulo;
+    private String nome_autor;
+    private String texto;
 
     public LivroDTO(Livro obj) {
         this.id = obj.getId();
         this.titulo = obj.getTitulo();
+        this.nome_autor = obj.getNome_autor();
+        this.texto = obj.getTexto();
     }
 
 }
