@@ -3,6 +3,7 @@ package bookstore_api.services;
 import bookstore_api.domain.Categoria;
 import bookstore_api.dtos.CategoriaDTO;
 import bookstore_api.repositories.CategoriaRepository;
+import bookstore_api.services.exeptions.DataIntegrityViolationExcepition;
 import bookstore_api.services.exeptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.Locked;
@@ -47,7 +48,11 @@ public class CategoriaService {
     @Transactional()
     public void delete(Integer id) {
         findById(id);
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        }catch (DataIntegrityViolationExcepition e){
+            throw new DataIntegrityViolationExcepition("Categoria não pode ser deletado! Possui livros associados");
+        }
     }
 
 
