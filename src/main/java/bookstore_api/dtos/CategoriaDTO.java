@@ -19,7 +19,6 @@ public class CategoriaDTO implements Serializable {
     private static final long seralVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String descricao;
