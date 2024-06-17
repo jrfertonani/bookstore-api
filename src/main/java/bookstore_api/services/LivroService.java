@@ -1,5 +1,6 @@
 package bookstore_api.services;
 
+import bookstore_api.domain.Categoria;
 import bookstore_api.domain.Livro;
 import bookstore_api.dtos.LivroDTO;
 import bookstore_api.repositories.LivroRepository;
@@ -27,25 +28,28 @@ public class LivroService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! id: " + id + ", Tipo: " + Livro.class.getName()));
     }
-    /*
-        @Transactional()
-        public List<Livro> findAll(){
-        return repository.findAll();
-        }
-    */
+
     @Transactional()
-    public Livro create(Livro obj){
+    public List<Livro> findAll(Integer id_cat){
+        categoriaService.findById(id_cat);
+        return repository.findAllByCategoria(id_cat);
+        }
+
+    @Transactional()
+    public Livro create(Integer id_cat, Livro obj){
         obj.setId(null);
+        Categoria cat = categoriaService.findById(id_cat);
+        obj.setCategoria(cat);
         return repository.save(obj);
     }
 
     @Transactional()
-    public Livro update(Integer id, LivroDTO objDto) {
-        Livro obj = findById(id);
-        obj.setTitulo(objDto.getTitulo());
-        obj.setNome_autor(objDto.getNome_autor());
-        obj.setTexto(obj.getTexto());
-        return repository.save(obj);
+    public Livro update(Integer id, Livro obj) {
+        Livro newObj = findById(id);
+        newObj.setTitulo(obj.getTitulo());
+        newObj.setNome_autor(obj.getNome_autor());
+        newObj.setTexto(obj.getTexto());
+        return repository.save(newObj);
     }
 
     @Transactional()
