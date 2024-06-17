@@ -1,6 +1,7 @@
 package bookstore_api.services;
 
 import bookstore_api.domain.Categoria;
+import bookstore_api.dtos.CategoriaDTO;
 import bookstore_api.repositories.CategoriaRepository;
 import bookstore_api.services.exeptions.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
@@ -34,4 +35,14 @@ public class CategoriaService {
         obj.setId(null);
         return repository.save(obj);
     }
+
+    @Transactional()
+    public Categoria update(Integer id, CategoriaDTO objDto) {
+        Categoria obj = findById(id);
+        obj.setNome(objDto.getNome());
+        obj.setDescricao(objDto.getDescricao());
+        return repository.save(obj);
+    }
+
+    //@Transactional()
 }
