@@ -1,5 +1,6 @@
 package bookstore_api.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Livro implements Serializable {
     private String nome_autor;
     private String texto;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bookstore_id")
     private Categoria categoria;
